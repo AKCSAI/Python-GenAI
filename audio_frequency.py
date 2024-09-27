@@ -1,4 +1,4 @@
-# This program checks the audio frequency of files
+# This program checks the audio frequency
 
 import os
 from pydub import AudioSegment
