@@ -1,4 +1,5 @@
-Welcome to the Python-GenAI repository! This repository contains scripts and resources designed to streamline the integration of Python-based AI tools into your projects. All files are plug and play, provided the file paths are set correctly in your environment.
+Welcome to the Python-GenAI repository! This repository contains scripts and resources designed to streamline the integration of Python-based AI tools into your projects. 
+All files are plug-and-play, provided the file paths are set correctly in your environment.
 
 How to Use
 Clone this repository to your local machine.
