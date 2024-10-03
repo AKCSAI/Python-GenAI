@@ -38,6 +38,6 @@ def check_all_audio_in_folder(folder_path):
             check_audio_properties(file_path)
 
 # Example usage
-folder_path = "/Users/azizkhan/Desktop/Spanish Inbound Calls Audio"  # Update this path
+folder_path = "/Users/azizkhan/Desktop/Spanish_Calls"  # Update this path
 check_all_audio_in_folder(folder_path)
 
