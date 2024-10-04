@@ -91,3 +91,5 @@ base_output_folder = "generated_voices"
 
 # Run the function to generate speech commands
 generate_speech_commands(csv_file_path, base_output_folder)
+
+
