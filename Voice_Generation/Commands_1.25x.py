@@ -32,15 +32,24 @@ def generate_audio(text, output_folder, filename, voice_id):
             file.write(response['AudioStream'].read())
             print(f"Generated audio saved to {output_path}")
 
-        # Generate a faster version of the audio
+        # Load the generated audio and add a 2-second buffer before and after
         audio = AudioSegment.from_mp3(output_path)
-        faster_audio = audio.speedup(playback_speed=1.25)
+        silence = AudioSegment.silent(duration=2000)  # 2 seconds of silence
+        buffered_audio = silence + audio + silence
+
+        # Save the buffered audio
+        buffered_output_path = os.path.join(output_folder, f"buffered_{filename}")
+        buffered_audio.export(buffered_output_path, format="mp3")
+        print(f"Generated buffered audio saved to {buffered_output_path}")
+
+        # Generate a faster version of the buffered audio (1.25x speed)
+        faster_audio = buffered_audio.speedup(playback_speed=1.25)
         faster_output_path = os.path.join(output_folder, f"faster_{filename}")
         faster_audio.export(faster_output_path, format="mp3")
         print(f"Generated faster audio saved to {faster_output_path}")
 
-        # Generate a faster version of the audio (1.5x speed)
-        faster_audio_1_5X = audio.speedup(playback_speed=1.5)
+        # Generate a faster version of the buffered audio (1.5x speed)
+        faster_audio_1_5X = buffered_audio.speedup(playback_speed=1.5)
         faster_output_path_1_5X = os.path.join(output_folder, f"faster_1_5X_{filename}")
         faster_audio_1_5X.export(faster_output_path_1_5X, format="mp3")
         print(f"Generated 1.5x faster audio saved to {faster_output_path_1_5X}")
@@ -91,3 +100,5 @@ base_output_folder = "generated_voices"
 
 # Run the function to generate speech commands
 generate_speech_commands(csv_file_path, base_output_folder)
+
+
