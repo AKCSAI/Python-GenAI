@@ -1,6 +1,7 @@
 import wave
 import numpy as np
 import os
+from scipy.fft import fft
 
 def check_audio_channels(file_path):
     # Check if file exists
@@ -34,18 +35,27 @@ def check_audio_channels(file_path):
             # Reshape the array into channels
             audio_data = np.reshape(audio_data, (-1, n_channels))
 
-            # Analyze channel data for differences
-            channel_diff = np.mean(np.abs(audio_data[:, 0] - audio_data[:, 1]))
+            # Perform FFT for each channel
+            left_channel_fft = np.abs(fft(audio_data[:, 0]))[:n_frames // 2]
+            right_channel_fft = np.abs(fft(audio_data[:, 1]))[:n_frames // 2]
 
-            if channel_diff > 0:
-                print("It seems like there are different signals on each channel.")
-                print(f"Difference between channels: {channel_diff}")
+            # Normalize the FFT output to compare them more easily
+            left_channel_fft /= np.max(left_channel_fft)
+            right_channel_fft /= np.max(right_channel_fft)
+
+            # Compute the mean absolute difference between the FFT results of the two channels
+            fft_diff = np.mean(np.abs(left_channel_fft - right_channel_fft))
+
+            # Threshold to determine if sound signatures are distinct
+            if fft_diff > 0.1:  # You can adjust this threshold based on your requirements
+                print(f"The channels have distinct sound signatures with a difference of {fft_diff}.")
             else:
-                print("Both channels seem to have identical audio. It might be the same speaker on both channels.")
+                print(f"The channels have very similar sound signatures with a difference of {fft_diff}.")
 
     except wave.Error as e:
         print(f"Error processing the audio file: {e}")
 
-# Example usage
+# Example usage with your file path
 file_path = '/users/azizkhan/python/3202NMATStereo_231005125244_5513441016-all.wav'
 check_audio_channels(file_path)
+
