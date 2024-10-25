@@ -56,6 +56,6 @@ def check_audio_channels(file_path):
         print(f"Error processing the audio file: {e}")
 
 # Example usage with your file path
-file_path = '/users/azizkhan/python/3202NMATStereo_231005125244_5513441016-all.wav'
+file_path = '/users/azizkhan/python/'
 check_audio_channels(file_path)
 
