@@ -52,9 +52,24 @@ def apply_pan_effect(audio_file, transcript_file, output_folder):
     new_audio.export(output_file, format="wav")
     print(f"Stereo audio saved to {output_file}")
 
-# Example usage
-audio_file = '/users/azizkhan/python/3202NMATStereo_231005125244_5513441016-all.wav'  # Path to the original audio file
-transcript_file = '/users/azizkhan/python/3202NMATStereo_231005125244_5513441016-all.csv'  # Path to the CSV transcript
-output_folder = '/users/azizkhan/python/output'  # Folder where the new stereo audio will be saved
+def process_folder(input_folder, output_folder):
+    # Scan the input folder for audio and corresponding transcript files
+    for filename in os.listdir(input_folder):
+        if filename.endswith(".wav"):
+            audio_file = os.path.join(input_folder, filename)
 
-apply_pan_effect(audio_file, transcript_file, output_folder)
+            # Assuming the transcript file has the same base name with a .csv extension
+            transcript_file = os.path.join(input_folder, os.path.splitext(filename)[0] + '.csv')
+            
+            if os.path.exists(transcript_file):
+                # Apply the pan effect and save the output in the corresponding output folder
+                apply_pan_effect(audio_file, transcript_file, output_folder)
+            else:
+                print(f"Transcript file for {filename} not found.")
+
+# Example usage
+input_folder = '/users/azizkhan/python/Spanish_audio1'  # Path to the folder containing audio and transcript files
+output_folder = '/users/azizkhan/python/Spanish_audio1_output'  # Folder where processed files will be saved
+
+process_folder(input_folder, output_folder)
+
