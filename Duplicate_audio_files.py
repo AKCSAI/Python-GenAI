@@ -7,12 +7,14 @@ def generate_audio_hash(file_path):
     try:
         # Load the audio file
         audio = AudioSegment.from_file(file_path)
+        # Get audio duration
+        duration = len(audio) / 1000  # Convert to seconds
         # Convert the audio to raw data and create a hash of the content
         audio_data = audio.raw_data
-        return hashlib.md5(audio_data).hexdigest()
+        return hashlib.md5(audio_data).hexdigest(), duration
     except Exception as e:
         print(f"Error processing {file_path}: {e}")
-        return None
+        return None, None
 
 def find_duplicates(folder_path):
     name_duplicates = {}
@@ -31,18 +33,21 @@ def find_duplicates(folder_path):
                 name_duplicates[filename] = [file_path]
 
             # Check for sound-signature based duplicates
-            audio_hash = generate_audio_hash(file_path)
+            audio_hash, duration = generate_audio_hash(file_path)
             if audio_hash:
-                if audio_hash in sound_signatures:
-                    sound_signatures[audio_hash].append(file_path)
+                if duration not in sound_signatures:
+                    sound_signatures[duration] = {}  # Group by duration first
+                if audio_hash in sound_signatures[duration]:
+                    sound_signatures[duration][audio_hash].append(file_path)
                 else:
-                    sound_signatures[audio_hash] = [file_path]
+                    sound_signatures[duration][audio_hash] = [file_path]
 
     # Filter to keep only actual name duplicates
     name_duplicates = {k: v for k, v in name_duplicates.items() if len(v) > 1}
 
     # Filter to keep only actual sound duplicates
-    sound_duplicates = {k: v for k, v in sound_signatures.items() if len(v) > 1}
+    sound_duplicates = {duration: files for duration, hashes in sound_signatures.items()
+                        for audio_hash, files in hashes.items() if len(files) > 1}
 
     return name_duplicates, sound_duplicates
 
@@ -63,8 +68,8 @@ def print_duplicate_summary(name_duplicates, sound_duplicates):
     # Print sound-signature-based duplicates
     if sound_duplicates:
         print(f"\nNumber of sound-based duplicate files: {total_sound_duplicates}")
-        for audio_hash, files in sound_duplicates.items():
-            print(f"\nDuplicate sound signature (hash: {audio_hash}):")
+        for duration, files in sound_duplicates.items():
+            print(f"\nDuplicate sound files with duration ~ {duration} seconds:")
             for file in files:
                 print(f"  - {file}")
     else:
