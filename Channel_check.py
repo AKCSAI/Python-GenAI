@@ -4,6 +4,19 @@ import os
 from scipy.fft import fft
 
 def check_audio_channels(file_path):
+    # Check if the provided path is a directory
+    if os.path.isdir(file_path):
+        # If it's a directory, iterate over all files in the directory
+        for filename in os.listdir(file_path):
+            if filename.endswith('.wav'):  # Process only WAV files
+                full_path = os.path.join(file_path, filename)
+                print(f"Processing file: {full_path}")
+                process_audio_file(full_path)
+    else:
+        # If it's a file, process it directly
+        process_audio_file(file_path)
+
+def process_audio_file(file_path):
     # Check if file exists
     if not os.path.exists(file_path):
         print(f"The file at {file_path} does not exist.")
@@ -56,6 +69,7 @@ def check_audio_channels(file_path):
         print(f"Error processing the audio file: {e}")
 
 # Example usage with your file path
-file_path = '/users/azizkhan/python/Spanish_Audio1'
+file_path = '/users/azizkhan/python/Spanish_Audio_3'  # This is a directory
 check_audio_channels(file_path)
+
 
