@@ -1,11 +1,12 @@
 import os
 from pydub import AudioSegment
-from pydub.silence import detect_silence, detect_nonsilent
+from pydub.silence import detect_silence
 
 # Function to calculate total speech and silence durations in a folder of audio files
-def calculate_speech_and_silence_duration(folder_path, silence_threshold=-50.0, min_silence_len=1000):
+def calculate_speech_and_silence_duration(folder_path, silence_threshold=-50.0, min_silence_len=1000, long_silence_len=300000):
     total_speech_duration_ms = 0  # Store the total duration of speech (non-silence) in milliseconds
     total_silence_duration_ms = 0  # Store the total duration of silence in milliseconds
+    files_with_long_silence = []  # Store names of files with silence longer than 5 minutes
 
     # Iterate over all audio files in the folder
     for filename in os.listdir(folder_path):
@@ -17,15 +18,21 @@ def calculate_speech_and_silence_duration(folder_path, silence_threshold=-50.0, 
                 audio = AudioSegment.from_file(file_path)
 
                 # Detect silence in the audio
-                silence = detect_silence(audio, min_silence_len=min_silence_len, silence_thresh=silence_threshold)
-                
+                silences = detect_silence(audio, min_silence_len=min_silence_len, silence_thresh=silence_threshold)
+
                 # Calculate total silence duration
-                silence_duration = sum(end - start for start, end in silence)
+                silence_duration = sum(end - start for start, end in silences)
                 total_silence_duration_ms += silence_duration
 
                 # Calculate total speech (non-silence) duration
                 total_duration_ms = len(audio)
                 total_speech_duration_ms += (total_duration_ms - silence_duration)
+
+                # Check for silences longer than 5 minutes
+                for start, end in silences:
+                    if (end - start) > long_silence_len:
+                        files_with_long_silence.append(filename)
+                        break  # No need to check further for this file if a long silence is found
 
             except Exception as e:
                 print(f"Error processing {file_path}: {e}")
@@ -43,11 +50,21 @@ def calculate_speech_and_silence_duration(folder_path, silence_threshold=-50.0, 
     total_silence_seconds = int(total_silence_seconds % 60)
 
     return (total_speech_hours, total_speech_minutes, total_speech_seconds), \
-           (total_silence_hours, total_silence_minutes, total_silence_seconds)
+           (total_silence_hours, total_silence_minutes, total_silence_seconds), \
+           files_with_long_silence
 
 # Example usage
-folder_path = "/Users/azizkhan/python/Spanish_audio1"  # Update this to your folder path
-speech_duration, silence_duration = calculate_speech_and_silence_duration(folder_path)
+folder_path = "/Users/azizkhan/python/Spanish_audio1/"  # Updated path
+speech_duration, silence_duration, files_with_long_silence = calculate_speech_and_silence_duration(folder_path)
 
+# Print total speech and silence durations
 print(f"Total speech duration: {speech_duration[0]} hours, {speech_duration[1]} minutes, {speech_duration[2]} seconds")
 print(f"Total silence duration: {silence_duration[0]} hours, {silence_duration[1]} minutes, {silence_duration[2]} seconds")
+
+# Print files with silences longer than 5 minutes
+if files_with_long_silence:
+    print("\nFiles with silence longer than 5 minutes:")
+    for file in files_with_long_silence:
+        print(f"  - {file}")
+else:
+    print("No files with silence longer than 5 minutes were found.")
