@@ -76,7 +76,7 @@ def print_duplicate_summary(name_duplicates, sound_duplicates):
         print("No sound-signature-based duplicate files found.")
 
 # Example usage
-folder_path = "/Users/azizkhan/python/Spanish_audio1"  # Update this path
+folder_path = "/Users/azizkhan/python/Spanish_audio1/Test"  # Update this path
 
 # Find duplicates
 name_duplicates, sound_duplicates = find_duplicates(folder_path)
