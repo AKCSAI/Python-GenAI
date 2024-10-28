@@ -83,3 +83,4 @@ name_duplicates, sound_duplicates = find_duplicates(folder_path)
 
 # Print the results
 print_duplicate_summary(name_duplicates, sound_duplicates)
+
