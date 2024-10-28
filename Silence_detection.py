@@ -54,7 +54,7 @@ def calculate_speech_and_silence_duration(folder_path, silence_threshold=-50.0, 
            files_with_long_silence
 
 # Example usage
-folder_path = "/Users/azizkhan/python/Spanish_audio1/"  # Updated path
+folder_path = "/Users/azizkhan/python/Test_Files/"  # Updated path
 speech_duration, silence_duration, files_with_long_silence = calculate_speech_and_silence_duration(folder_path)
 
 # Print total speech and silence durations
