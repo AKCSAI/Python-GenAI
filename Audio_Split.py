@@ -68,7 +68,7 @@ def process_folder(input_folder, output_folder):
                 print(f"Transcript file for {filename} not found.")
 
 # Example usage
-input_folder = '/users/azizkhan/python/Spanish_audio1'  # Path to the folder containing audio and transcript files
+input_folder = '/users/azizkhan/python/Spanish_audio'  # Path to the folder containing audio and transcript files
 output_folder = '/users/azizkhan/python/Spanish_audio1_output'  # Folder where processed files will be saved
 
 process_folder(input_folder, output_folder)
