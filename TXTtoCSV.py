@@ -104,6 +104,3 @@ def convert_txt_to_csv(input_dir, output_dir):
 input_dir = '/users/azizkhan/python/test_files/'  # Replace with your actual input directory
 output_dir = '/users/azizkhan/python/test_files/output_files/'  # Replace with your desired output directory
 convert_txt_to_csv(input_dir, output_dir)
-
-
-
