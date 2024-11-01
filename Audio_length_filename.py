@@ -36,16 +36,11 @@ def get_audio_frequency(file_path):
         return None
 
 def get_audio_channels(file_path):
-    """Get the number of audio channels and return 'Mono' or 'Stereo'."""
+    """Get the number of channels (mono or stereo) in the audio file."""
     try:
         info = mediainfo(file_path)
         channels = int(info['channels'])
-        if channels == 1:
-            return "Mono"
-        elif channels == 2:
-            return "Stereo"
-        else:
-            return f"{channels} Channels"  # In case of more than 2 channels
+        return "Stereo" if channels == 2 else "Mono"
     except Exception as e:
         print(f"Error reading channels from {file_path}: {e}")
         return None
