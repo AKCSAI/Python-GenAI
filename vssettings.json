@@ -1,0 +1,176 @@
+{
+  // Auto-fetch Git repos
+  "git.autofetch": true,
+
+  // Editor font
+  "editor.fontFamily": "FiraMono Nerd Font",
+
+  // Terminal font styling
+  "terminal.integrated.fontWeight": "normal",
+  "terminal.integrated.fontFamily": "FiraMono Nerd Font",
+
+  // Allow terminal to receive keybindings
+  "terminal.integrated.sendKeybindingsToShell": true,
+
+  // Don't open files in preview by default
+  "workbench.editor.enablePreview": false,
+
+  // Preferred themes
+  "workbench.preferredHighContrastColorTheme": "Default Dark+",
+  "workbench.preferredDarkColorTheme": "Tomorrow Night Blue",
+  "workbench.colorTheme": "Orange Haze",             // Sets base color scheme
+  "workbench.iconTheme": "vscode-great-icons",             // Controls file/folder icons
+
+  // 🎨 Custom colors throughout the UI
+  "workbench.colorCustomizations": {
+    // Terminal text colors
+    "terminal.ansiGreen": "#ffa500",                 // Used for success logs
+    //"terminal.ansiYellow": "#ead475",                // Mild yellow (warnings)
+    //"terminal.ansiBrightYellow": "#fce95a",          // Brighter yellow
+    //"terminal.ansiBlue": "#3a84c3",
+    //"terminal.ansiBrightBlue": "#66b2ff",
+    "terminal.ansiCyan": "#2472c8",
+    "terminal.ansiBrightCyan": "#80eaff",
+    //"terminal.ansiRed": "#e57373",                   // Errors or alerts
+    //"terminal.ansiBrightRed": "#ff8a80",
+    //"terminal.ansiMagenta": "#d670d6",
+    //"terminal.ansiBrightMagenta": "#f3a3f3",
+    //"terminal.ansiWhite": "#f0f0f0",
+    //"terminal.ansiBrightWhite": "#ffffff",
+    //"terminal.ansiBlack": "#000000",
+    //"terminal.ansiBrightBlack": "#666666",
+
+    // Backgrounds (dark blue theme)
+    //"terminal.background": "#0d1b2a",                // Terminal background
+    //"editor.background": "#0d1b2a",                  // Editor/code background
+    //"sideBar.background": "#0d1b2a",                 // Left-hand panel
+    //"activityBar.background": "#101d2c",             // Vertical bar with icons
+
+    // Tabs styling
+    //"editorGroupHeader.tabsBackground": "#122233",   // Tab bar
+    //"tab.activeBackground": "#2a2e4b",               // Selected tab
+    //"tab.activeForeground": "#ffffff",
+    //"tab.inactiveBackground": "#1a1f33",             // Unselected tabs
+    //"tab.inactiveForeground": "#999999",
+    //"tab.border": "#1c2238",
+
+    // Status bar (bottom bar)
+    "statusBar.background": "#2472c8",               // Main background
+    "statusBar.foreground": "#ffffff",               // Text/icons
+    "statusBar.noFolderBackground": "#b47813",       // When no folder is open
+    "statusBar.debuggingBackground": "#c87c12",      // While debugging
+    "statusBarItem.remoteBackground": "#ffa500",     // Remote icon BG
+    "statusBarItem.remoteForeground": "#000000",     // Remote icon text
+
+    // Sidebar section headers (GCONFIG, OUTLINE, etc.)
+    //"sideBarSectionHeader.background": "#122233",    // Matches tabs
+    //"sideBarSectionHeader.foreground": "#dcdcff"     // Soft white/purple text
+
+  },
+
+  // Syntax token color tweaks (optional, currently unused)
+  // Syntax token color tweaks (optional, currently unused)
+"editor.tokenColorCustomizations": {
+  "textMateRules": [
+    {
+      "scope": "string.unquoted",
+      "settings": {
+        "foreground": "#9bb0ff" // Blue with a slight lavender tint ("#7e9aff" - Soft periwinkle/Darker Version) 
+      }
+    },
+    {
+      "scope": [
+        "string.quoted",
+        "string.quoted.single",
+        "string.quoted.double"
+      ],
+      "settings": {
+        "foreground": "#80eaff" // Cyan for quoted strings
+      }
+    }
+  ]
+},
+
+
+  // Tabnine AI plugin setting
+  "tabnine.experimentalAutoImports": true,
+
+  // Git setting
+  "git.confirmSync": false,
+
+  // Disable Amazon Q prompt
+  "amazonQ.suppressPrompts": {
+    "amazonQChatDisclaimer": true
+  },
+
+  // Window behavior
+  "window.newWindowProfile": "Default",
+
+  // OS-specific terminal automation profiles (empty = defaults)
+  "terminal.integrated.automationProfile.osx": null,
+  "terminal.integrated.automationProfile.linux": null,
+
+
+  // Terminal profiles
+  "terminal.integrated.profiles.osx": {
+    "bash": {
+      "path": "bash",
+      "args": ["-l"],
+      "icon": "terminal-bash"
+    },
+    "zsh": {
+      "path": "/bin/zsh",
+      "args": ["-l"]
+    },
+    "fish": {
+      "path": "fish",
+      "args": ["-l"]
+    },
+    "tmux": {
+      "path": "tmux",
+      "icon": "terminal-tmux"
+    },
+    "pwsh": {
+      "path": "pwsh",
+      "icon": "terminal-powershell"
+    }
+  },
+
+  // Python interpreter path
+  "python.defaultInterpreterPath": "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3.13",
+
+  // Disable file icons for unknown types
+  "vsicons.associations.fileDefault.file": {},
+  "vsicons.associations.fileDefault.file_light": {},
+  "vsicons.associations.folderDefault.folder": {},
+
+  // Hide .vscode folder from file explorer
+  "files.exclude": {
+    "**/.vscode": true
+  },
+  "[python]": {
+    "diffEditor.ignoreTrimWhitespace": true
+  },
+  "[xml]": {
+    "editor.defaultFormatter": "redhat.vscode-xml"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "[dockercompose]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "editor.autoIndent": "advanced",
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": false,
+      "strings": true
+    },
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "[github-actions-workflow]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  }
+}
+
+
